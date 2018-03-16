@@ -4,6 +4,8 @@ import { observer } from "mobx-react"
 
 const NUM_BODY_TYPES = 6
 
+import PartnerImage from "./PartnerImage"
+
 @observer
 export default class EditablePartner extends React.Component {
   changeBodyType = direction => {
@@ -56,6 +58,8 @@ export default class EditablePartner extends React.Component {
             onChange={this.handleChangeName(partnerNumber)}
           />
         </div>
+
+        <PartnerImage partnerDetails={this.props.partnerDetails} />
 
         <div>
           Partner {partnerNumber + 1} body type:{" "}
