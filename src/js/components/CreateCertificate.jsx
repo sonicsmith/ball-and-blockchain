@@ -1,82 +1,33 @@
 import React, { Component } from "react"
 import { observable, action } from "mobx"
 import { observer } from "mobx-react"
+import Web3 from "web3"
 
+import EditablePartner from "./EditablePartner"
 
-@observer
-class EditablePartner extends React.Component {
-
-  changeBodyType = (direction) => {
-    return () => {
-      const index = this.props.partnerNumber;
-      const newType = this.props.store.partnerBodyType[index] + direction;
-      if (newType >= 0 && newType <= this.props.store.NUM_BODY_TYPES) {
-        this.props.store.partnerBodyType[index] = newType;
-      }
-    }
-  }
-
-  handleChangeName = (index) => {
-    return (event) => {
-      event.preventDefault();
-      this.props.store.partnerName[index] = event.target.value;
-    }
-  }
-
-  handleChangeSkinColor = (index) => {
-    return (event) => {
-      event.preventDefault();
-      this.props.store.partnerSkinColor[index] = event.target.value;
-    }
-  }
-
-  handleChangeClothesColor = (index) => {
-    return (event) => {
-      event.preventDefault();
-      this.props.store.partnerClothesColor[index] = event.target.value;
-    }
-  }
-
-  render() {
-    const partnerNumber = this.props.partnerNumber;
-    const { partnerName, partnerBodyType, partnerSkinColor, partnerClothesColor } = this.props.store;
-    return (<div>
-      <div>
-        Partner {partnerNumber + 1} name:
-      </div>
-      <div>
-        <input type="text" value={partnerName[partnerNumber]} onChange={this.handleChangeName(partnerNumber)} />
-      </div>
-
-      <div>
-        Partner {partnerNumber + 1} body type: {partnerBodyType[partnerNumber]}
-      </div>
-      <div>
-        <button onClick={this.changeBodyType(-1)}>{"<"}</button>
-        <button onClick={this.changeBodyType(+1)}>{">"}</button>
-      </div>
-
-      <div>
-        Partner {partnerNumber + 1} skin color:
-      </div>
-      <div>
-        <input type="color" value={partnerSkinColor[partnerNumber]} onChange={this.handleChangeSkinColor(partnerNumber)} />
-      </div>
-
-      <div>
-        Partner {partnerNumber + 1} clothes color:
-      </div>
-      <div>
-        <input type="color" value={partnerClothesColor[partnerNumber]} onChange={this.handleChangeClothesColor(partnerNumber)} />
-      </div>
-    </div>
-    )
-  }
-}
-
+const MINIMUM_COST = 0.01
 
 @observer
 export default class CreateCertificate extends React.Component {
+  @observable address = ""
+  @observable partnerName = ["", ""]
+  @observable partnerBodyType = [0, 0]
+  @observable partnerSkinColor = ["#000000", "#000000"]
+  @observable partnerClothesColor = ["#000000", "#000000"]
+  @observable message = ""
+  @observable bid = this.MINIMUM_COST
+
+  constructor() {
+    super()
+    if (typeof web3 != "undefined") {
+      console.log("Using web3 detected from external source")
+      this.web3 = new Web3(web3.currentProvider)
+      const myContract = this.web3.eth.contract(abi.abi)
+      this.contractInstance = myContract.at(
+        "0x68bfc43672ba4f9d22cccd22b0ca33b674717e9b"
+      )
+    }
+  }
 
   createCertificate = () => {
     const {
@@ -87,26 +38,26 @@ export default class CreateCertificate extends React.Component {
       partnerSkinColor,
       partnerClothesColor,
       message,
-      bid
-    } = this.props.store;
+      bid,
+    } = this
 
-    if (!web3.eth.accounts[0]) {
-      alert("No ethereum address detected. Are you logged in?");
-      return;
+    if (!web3 || web3.eth.accounts[0]) {
+      alert("No ethereum address detected. Are you logged in?")
+      return
     }
 
-    const partnerNames = `${partnerName[0]}&${partnerName[1]}`;
+    const partnerNames = `${partnerName[0]}&${partnerName[1]}`
     const getPartnerDetails = () => {
       return [
         partnerBodyType[0],
-        0,//partnerSkinColor[0],
-        0,//partnerClothesColor[0],
+        0, //partnerSkinColor[0],
+        0, //partnerClothesColor[0],
         partnerBodyType[1],
-        0,//partnerSkinColor[1],
-        0,//partnerClothesColor[1],
+        0, //partnerSkinColor[1],
+        0, //partnerClothesColor[1],
       ]
-    };
-    console.log("trying to create...");
+    }
+    console.log("trying to create...")
     contractInstance.createCertificate(
       partnerNames,
       getPartnerDetails(),
@@ -114,59 +65,89 @@ export default class CreateCertificate extends React.Component {
       {
         gas: 300000,
         from: web3.eth.accounts[0],
-        value: web3.toWei(bid, "ether")
+        value: web3.toWei(bid, "ether"),
       },
       (err, result) => {
-        console.log("Err:", err);
-        console.log("Result:", err);
+        console.log("Err:", err)
+        console.log("Result:", err)
       }
-    );
+    )
   }
 
-
-  handleChangeMessage = (event) => {
-    event.preventDefault();
-    this.props.store.message = event.target.value;
+  handleChangeMessage = event => {
+    event.preventDefault()
+    this.props.store.message = event.target.value
   }
 
-  handleChangeBid = (event) => {
-    event.preventDefault();
-    this.props.store.bid = event.target.value;
+  handleChangeBid = event => {
+    event.preventDefault()
+    this.props.store.bid = event.target.value
   }
 
   render() {
-    const { web3, message, bid } = this.props.store;
-    const address = web3.eth.accounts[0] ? web3.eth.accounts[0] : "[no address detected]";
-    return (<div>
-      <div>
-        Ethereum address:
-      </div>
-      <div>
-        {address}
-      </div>
+    const {
+      web3,
+      message,
+      bid,
+      partnerName,
+      partnerBodyType,
+      partnerSkinColor,
+      partnerClothesColor,
+    } = this
 
-      <EditablePartner partnerNumber={0} store={this.props.store} />
-      <EditablePartner partnerNumber={1} store={this.props.store} />
+    const address =
+      web3 && web3.eth.accounts[0]
+        ? web3.eth.accounts[0]
+        : "[no address detected]"
+    return (
+      <div>
+        <div>Ethereum address:</div>
+        <div>{address}</div>
 
-      <div>
-        Optional message:
-      </div>
-      <div>
-        <input type="textarea" value={message} onChange={this.handleChangeMessage} />
-      </div>
+        <EditablePartner
+          partnerNumber={0}
+          partnerDetails={{
+            partnerName,
+            partnerBodyType,
+            partnerSkinColor,
+            partnerClothesColor,
+          }}
+        />
+        <EditablePartner
+          partnerNumber={1}
+          partnerDetails={{
+            partnerName,
+            partnerBodyType,
+            partnerSkinColor,
+            partnerClothesColor,
+          }}
+        />
 
-      <div>
-        Price: (minimum {this.props.store.MINIMUM_COST})
-      </div>
-      <div>
-        <input type="number" value={bid} onChange={this.handleChangeBid} placeholder={this.props.store.MINIMUM_COST} />ETH
-      </div>
+        <div>Optional message:</div>
+        <div>
+          <input
+            type="textarea"
+            value={message}
+            onChange={this.handleChangeMessage}
+          />
+        </div>
 
-      <div>
-        <button type="button" onClick={this.createCertificate}>CREATE</button>
+        <div>Price: (minimum {this.MINIMUM_COST})</div>
+        <div>
+          <input
+            type="number"
+            value={bid}
+            onChange={this.handleChangeBid}
+            placeholder={this.MINIMUM_COST}
+          />ETH
+        </div>
+
+        <div>
+          <button type="button" onClick={this.createCertificate}>
+            CREATE
+          </button>
+        </div>
       </div>
-    </div>
     )
   }
 }
-

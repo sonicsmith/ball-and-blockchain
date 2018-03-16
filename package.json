@@ -25,6 +25,7 @@
     "mobx-react-devtools": "^4.2.11",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
     "style-loader": "^0.18.2",
     "truffle": "^3.4.8",
     "web3": "^0.20.0",

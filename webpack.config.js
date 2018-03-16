@@ -1,13 +1,13 @@
-const path = require('path')
+const path = require("path")
 const webpack = require("webpack")
 
 module.exports = {
   devtool: "eval",
   entry: ["./src/js/index"],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'build.js', // The final file will be created in dist/build.js
-    publicPath: "/dist/"
+    path: path.join(__dirname, "dist"),
+    filename: "build.js", // The final file will be created in dist/build.js
+    publicPath: "/dist/",
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   resolve: {
@@ -23,10 +23,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
-      }, {
+      },
+      {
         test: /\.json$/, // To load the json files
-        loader: 'json-loader'
-      }
+        loader: "json-loader",
+      },
     ],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
 }
