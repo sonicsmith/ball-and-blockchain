@@ -2,6 +2,7 @@ import React, { Component } from "react"
 
 export default class Male extends React.Component {
   render() {
+    const { partnerSkinColor, partnerClothesColor } = this.props.partnerDetails
     return (
       <svg
         version="1.1"
@@ -22,7 +23,7 @@ export default class Male extends React.Component {
         <path
           d="M6 11h1v2h1v-2h1v2h1v-2h1v1h1v9h-1v10h1v1h-3v-10h-1v10h-3v-1h1v-10h-1
 	v-9h1v-1z"
-          fill="rgb(0,0,0)"
+          fill={partnerClothesColor}
         />
         <path d="M7 11h1v2h-1v-2z" fill="rgb(255,255,255)" />
         <path d="M9 11h1v2h-1v-2z" fill="rgb(255,255,255)" />

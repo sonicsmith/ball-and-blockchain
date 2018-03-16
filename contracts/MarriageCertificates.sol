@@ -5,7 +5,7 @@ contract MarriageCertificates {
     struct CertificateStruct {
         uint256 value;
         string names;
-        uint8[6] partnerDetails;
+        bytes32[6] partnerDetails;
         uint blockNumber;
         string message;
         bool exists;
@@ -35,7 +35,7 @@ contract MarriageCertificates {
 
     function createCertificate (
         string names,
-        uint8[6] partnerDetails,
+        bytes32[6] partnerDetails,
         string message
     ) payable public {
         require(msg.value >= 1 finney);
@@ -63,7 +63,7 @@ contract MarriageCertificates {
 
     }
 
-    function getCertificate (address key) public constant returns (uint256, string, uint8[6], string, uint) {
+    function getCertificate (address key) public constant returns (uint256, string, bytes32[6], string, uint) {
         if (CertificateStructs[key].exists) {
             return (
                 CertificateStructs[key].value,

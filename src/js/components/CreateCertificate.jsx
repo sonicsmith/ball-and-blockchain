@@ -50,11 +50,11 @@ export default class CreateCertificate extends React.Component {
     const getPartnerDetails = () => {
       return [
         partnerBodyType[0],
-        0, //partnerSkinColor[0],
-        0, //partnerClothesColor[0],
+        partnerSkinColor[0],
+        partnerClothesColor[0],
         partnerBodyType[1],
-        0, //partnerSkinColor[1],
-        0, //partnerClothesColor[1],
+        partnerSkinColor[1],
+        partnerClothesColor[1],
       ]
     }
     console.log("trying to create...")
