@@ -59,6 +59,7 @@ export default class CheckAddress extends React.Component {
             placeholder="Enter Ethereum address here"
             value={this.props.address}
             onChange={this.handleChange}
+            size="42"
           />
           <button type="button" onClick={this.findScreen} disabled={!isValidAddress(this.state.address)}>
             {isValidAddress(this.state.address) ? (<div>&#x1F50D;</div>) : (<div>/</div>)}

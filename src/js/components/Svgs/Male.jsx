@@ -6,6 +6,8 @@ export default class Male extends React.Component {
     const hairColor = partnerHairColor[partnerNumber]
     const skinColor = partnerSkinColor[partnerNumber]
     const clothesColor = partnerClothesColor[partnerNumber]
+    const shouldFlip = partnerNumber == 0 ? 1 : -1
+    const transform = `scale(${shouldFlip},1)`
 
     return (
       <svg
@@ -16,7 +18,8 @@ export default class Male extends React.Component {
         y="0px"
         width="160px"
         height="320px"
-        viewBox="0 0 16 32">
+        viewBox="0 0 16 32"
+        transform={transform}>
         <path
           d="M0 0h16v32h-4v-1h-1v-9h1v-10h-1v-1h-1v-1h1v-6h-4v1h-1v5h1v1h-1v1h-1v10
 	h1v9h-1v1h-5v-32z"

@@ -27,7 +27,7 @@ export default class CreateCertificate extends React.Component {
   @observable partnerSkinColor = ["#000000", "#000000"]
   @observable partnerClothesColor = ["#000000", "#000000"]
   @observable message = ""
-  @observable bid = this.MINIMUM_COST
+  @observable bid = MINIMUM_COST
 
   constructor() {
     super()
@@ -38,13 +38,15 @@ export default class CreateCertificate extends React.Component {
       this.contractInstance = myContract.at(
         "0xeb699b937100230b3e117eefc68f95fda598ded4"
       )
+    } else {
+      console.log("No web3")
     }
     for (let i = 0; i < 2; i++) {
+      this.partnerBodyType[i] = Math.floor(Math.random() * 2)
       this.partnerHairColor[i] = getRandomColor()
       this.partnerSkinColor[i] = getRandomColor()
       this.partnerClothesColor[i] = getRandomColor()
     }
-
   }
 
   createCertificate = () => {
@@ -59,7 +61,7 @@ export default class CreateCertificate extends React.Component {
       bid,
     } = this
 
-    if (!web3 || web3.eth.accounts[0]) {
+    if (!web3 || !web3.eth.accounts[0]) {
       alert("No ethereum address detected. Are you logged in?")
       return
     }
@@ -96,12 +98,12 @@ export default class CreateCertificate extends React.Component {
 
   handleChangeMessage = event => {
     event.preventDefault()
-    this.props.store.message = event.target.value
+    this.message = event.target.value
   }
 
   handleChangeBid = event => {
     event.preventDefault()
-    this.props.store.bid = event.target.value
+    this.bid = event.target.value
   }
 
   render() {
@@ -124,44 +126,46 @@ export default class CreateCertificate extends React.Component {
       <div>
         <div>Ethereum address:</div>
         <div>{address}</div>
-
-        <EditablePartner
-          partnerDetails={{
-            partnerNumber: 0,
-            partnerName,
-            partnerBodyType,
-            partnerHairColor,
-            partnerSkinColor,
-            partnerClothesColor,
-          }}
-        />
-        <EditablePartner
-          partnerDetails={{
-            partnerNumber: 1,
-            partnerName,
-            partnerBodyType,
-            partnerHairColor,
-            partnerSkinColor,
-            partnerClothesColor,
-          }}
-        />
-
+        <div>
+          <EditablePartner
+            partnerDetails={{
+              partnerNumber: 0,
+              partnerName,
+              partnerBodyType,
+              partnerHairColor,
+              partnerSkinColor,
+              partnerClothesColor,
+            }}
+          />
+          <EditablePartner
+            partnerDetails={{
+              partnerNumber: 1,
+              partnerName,
+              partnerBodyType,
+              partnerHairColor,
+              partnerSkinColor,
+              partnerClothesColor,
+            }}
+          />
+        </div>
         <div>Optional message:</div>
         <div>
           <input
             type="textarea"
             value={message}
             onChange={this.handleChangeMessage}
+            placeholder="E.g. Immutible Love triumps all <3"
+            size="140"
           />
         </div>
 
-        <div>Price: (minimum {this.MINIMUM_COST})</div>
+        <div>Price: (minimum {MINIMUM_COST})</div>
         <div>
           <input
             type="number"
             value={bid}
             onChange={this.handleChangeBid}
-            placeholder={this.MINIMUM_COST}
+            placeholder={MINIMUM_COST}
           />ETH
         </div>
 
