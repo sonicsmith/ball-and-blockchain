@@ -36,7 +36,7 @@ export default class CreateCertificate extends React.Component {
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
       this.contractInstance = myContract.at(
-        "0xeb699b937100230b3e117eefc68f95fda598ded4"
+        "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
     } else {
       console.log("No web3")
@@ -55,6 +55,7 @@ export default class CreateCertificate extends React.Component {
       contractInstance,
       partnerName,
       partnerBodyType,
+      partnerHairColor,
       partnerSkinColor,
       partnerClothesColor,
       message,
@@ -65,21 +66,20 @@ export default class CreateCertificate extends React.Component {
       alert("No ethereum address detected. Are you logged in?")
       return
     }
-
     const partnerNames = `${partnerName[0]}&${partnerName[1]}`
     const getPartnerDetails = () => {
       return [
         partnerBodyType[0],
-        partnerHairColor[0],
-        partnerSkinColor[0],
-        partnerClothesColor[0],
         partnerBodyType[1],
+        partnerHairColor[0],
         partnerHairColor[1],
+        partnerSkinColor[0],
         partnerSkinColor[1],
+        partnerClothesColor[0],
         partnerClothesColor[1],
       ]
     }
-    console.log("trying to create...")
+    console.log("trying to create:", partnerNames)
     contractInstance.createCertificate(
       partnerNames,
       getPartnerDetails().join(""),
@@ -97,12 +97,10 @@ export default class CreateCertificate extends React.Component {
   }
 
   handleChangeMessage = event => {
-    event.preventDefault()
     this.message = event.target.value
   }
 
   handleChangeBid = event => {
-    event.preventDefault()
     this.bid = event.target.value
   }
 

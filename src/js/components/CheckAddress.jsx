@@ -12,7 +12,6 @@ const isValidAddress = (h) => {
 
 export default class CheckAddress extends React.Component {
 
-
   constructor() {
     super()
     this.state = {
@@ -23,7 +22,7 @@ export default class CheckAddress extends React.Component {
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
       this.contractInstance = myContract.at(
-        "0xeb699b937100230b3e117eefc68f95fda598ded4"
+        "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
     }
   }
