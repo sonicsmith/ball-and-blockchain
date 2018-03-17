@@ -8,11 +8,22 @@ import EditablePartner from "./EditablePartner"
 
 const MINIMUM_COST = 0.01
 
+
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 @observer
 export default class CreateCertificate extends React.Component {
   @observable address = ""
   @observable partnerName = ["", ""]
   @observable partnerBodyType = [0, 0]
+  @observable partnerHairColor = ["#000000", "#000000"]
   @observable partnerSkinColor = ["#000000", "#000000"]
   @observable partnerClothesColor = ["#000000", "#000000"]
   @observable message = ""
@@ -28,6 +39,12 @@ export default class CreateCertificate extends React.Component {
         "0xeb699b937100230b3e117eefc68f95fda598ded4"
       )
     }
+    for (let i = 0; i < 2; i++) {
+      this.partnerHairColor[i] = getRandomColor()
+      this.partnerSkinColor[i] = getRandomColor()
+      this.partnerClothesColor[i] = getRandomColor()
+    }
+
   }
 
   createCertificate = () => {
@@ -51,9 +68,11 @@ export default class CreateCertificate extends React.Component {
     const getPartnerDetails = () => {
       return [
         partnerBodyType[0],
+        partnerHairColor[0],
         partnerSkinColor[0],
         partnerClothesColor[0],
         partnerBodyType[1],
+        partnerHairColor[1],
         partnerSkinColor[1],
         partnerClothesColor[1],
       ]
@@ -92,6 +111,7 @@ export default class CreateCertificate extends React.Component {
       bid,
       partnerName,
       partnerBodyType,
+      partnerHairColor,
       partnerSkinColor,
       partnerClothesColor,
     } = this
@@ -110,6 +130,7 @@ export default class CreateCertificate extends React.Component {
             partnerNumber: 0,
             partnerName,
             partnerBodyType,
+            partnerHairColor,
             partnerSkinColor,
             partnerClothesColor,
           }}
@@ -119,6 +140,7 @@ export default class CreateCertificate extends React.Component {
             partnerNumber: 1,
             partnerName,
             partnerBodyType,
+            partnerHairColor,
             partnerSkinColor,
             partnerClothesColor,
           }}

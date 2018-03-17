@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { observable, action } from "mobx"
 import { observer } from "mobx-react"
 
-const NUM_BODY_TYPES = 6
+const NUM_BODY_TYPES = 2
 
 import PartnerImage from "./PartnerImage"
 
@@ -10,11 +10,11 @@ import PartnerImage from "./PartnerImage"
 export default class EditablePartner extends React.Component {
   changeBodyType = direction => {
     return () => {
-      const index = this.props.partnerDetails.partnerNumber
-      const newType =
-        this.props.partnerDetails.partnerBodyType[index] + direction
-      if (newType >= 0 && newType <= NUM_BODY_TYPES) {
-        this.props.partnerDetails.partnerBodyType[index] = newType
+      const { partnerNumber, partnerBodyType } = this.props.partnerDetails
+      const index = partnerNumber
+      const newType = partnerBodyType[index] + direction
+      if (newType >= 0 && newType < NUM_BODY_TYPES) {
+        partnerBodyType[index] = newType
       }
     }
   }
@@ -22,6 +22,12 @@ export default class EditablePartner extends React.Component {
   handleChangeName = index => {
     return event => {
       this.props.partnerDetails.partnerName[index] = event.target.value
+    }
+  }
+
+  handleChangeHairColor = index => {
+    return event => {
+      this.props.partnerDetails.partnerHairColor[index] = event.target.value
     }
   }
 
@@ -33,8 +39,6 @@ export default class EditablePartner extends React.Component {
 
   handleChangeClothesColor = index => {
     return event => {
-      console.log("handleChangeClothesColor", event.target.value)
-      console.log(this.props.partnerDetails.partnerClothesColor[index])
       this.props.partnerDetails.partnerClothesColor[index] = event.target.value
     }
   }
@@ -44,6 +48,7 @@ export default class EditablePartner extends React.Component {
       partnerNumber,
       partnerName,
       partnerBodyType,
+      partnerHairColor,
       partnerSkinColor,
       partnerClothesColor,
     } = this.props.partnerDetails
@@ -67,6 +72,15 @@ export default class EditablePartner extends React.Component {
         <div>
           <button onClick={this.changeBodyType(-1)}>{"<"}</button>
           <button onClick={this.changeBodyType(+1)}>{">"}</button>
+        </div>
+
+        <div>Partner {partnerNumber + 1} hair color:</div>
+        <div>
+          <input
+            type="color"
+            value={partnerHairColor[partnerNumber]}
+            onChange={this.handleChangeHairColor(partnerNumber)}
+          />
         </div>
 
         <div>Partner {partnerNumber + 1} skin color:</div>
