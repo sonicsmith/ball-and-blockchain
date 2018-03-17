@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Web3 from "web3"
 import { abi } from "../../../build/contracts/MarriageCertificates.json"
+import styles from "../../css/styles.css"
 
 import ViewablePartner from "./ViewablePartner"
 import PartnerImage from "./PartnerImage"
@@ -43,14 +44,8 @@ export default class ViewCertificate extends React.Component {
     if (isValidAddress(this.state.address)) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
         console.log(result)
-        if (err) {
-          //
-          alert("ERROR: Accessing blockchain")
-          return
-        }
         this.setState({ resultReturned: true })
-        if (result != null) {
-          // uint256, string, string, string, uint
+        if (!err) {
           const bid = result[0]
           const names = result[1]
           const nameSplitIndex = names.indexOf("&")
@@ -67,29 +62,27 @@ export default class ViewCertificate extends React.Component {
               this.setState({ timestamp: result.timestamp })
             }
           })
-
           this.setState({
             bid: bid / weiInEth,
             partnerName: names.split("&"),
             partnerBodyType: bodyType,
             partnerHairColor: [
-              `#${colors[0]}`,
-              `#${colors[1]}`
+              `#${colors[1]}`,
+              `#${colors[2]}`
             ],
             partnerSkinColor: [
-              `#${colors[2]}`,
-              `#${colors[3]}`
+              `#${colors[3]}`,
+              `#${colors[4]}`
             ],
             partnerClothesColor: [
-              `#${colors[4]}`,
-              `#${colors[5]}`
+              `#${colors[5]}`,
+              `#${colors[6]}`
             ],
             message: result[3],
             blockNumber: blockNumber,
           })
-          console.log(colors)
         } else {
-
+          alert("ERROR: Accessing blockchain")
         }
       })
     }
@@ -112,11 +105,11 @@ export default class ViewCertificate extends React.Component {
       resultReturned
     } = this.state
     return (
-      <div>
+      <div className={styles.certificateContainer} >
         <h3>Certificate Address: {address}</h3>
         {resultReturned && blockNumber != 0 ? (
           <div>
-            <div>
+            <div className={styles.partnerContainer}>
               <PartnerImage partnerDetails={{
                 partnerNumber: 0,
                 partnerName,
@@ -138,7 +131,7 @@ export default class ViewCertificate extends React.Component {
               {partnerName[0]} {"&"} {partnerName[1]}
             </h1>
             were at {timestamp}, Linux Epoch Time, forever inscribed on block {blockNumber} of the
-            blockchain with the value of {bid} ETH.
+            Ethereum blockchain with the value of {bid} ETH.
             <div>{message}</div>
           </div>
         ) :

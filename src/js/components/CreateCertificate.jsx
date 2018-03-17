@@ -3,6 +3,7 @@ import { observable, action } from "mobx"
 import { observer } from "mobx-react"
 import Web3 from "web3"
 import { abi } from "../../../build/contracts/MarriageCertificates.json"
+import styles from "../../css/styles.css"
 
 import EditablePartner from "./EditablePartner"
 
@@ -28,6 +29,7 @@ export default class CreateCertificate extends React.Component {
   @observable partnerClothesColor = ["#000000", "#000000"]
   @observable message = ""
   @observable bid = MINIMUM_COST
+  @observable sendingData = false
 
   constructor() {
     super()
@@ -38,6 +40,7 @@ export default class CreateCertificate extends React.Component {
       this.contractInstance = myContract.at(
         "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
+      this.address = web3.eth.accounts[0]
     } else {
       console.log("No web3")
     }
@@ -50,6 +53,7 @@ export default class CreateCertificate extends React.Component {
   }
 
   createCertificate = () => {
+    sendingData = true
     const {
       web3,
       contractInstance,
@@ -62,10 +66,10 @@ export default class CreateCertificate extends React.Component {
       bid,
     } = this
 
-    if (!web3 || !web3.eth.accounts[0]) {
-      alert("No ethereum address detected. Are you logged in?")
-      return
-    }
+    // if (!web3 || !web3.eth.accounts[0]) {
+    //   alert("No ethereum address detected. Are you logged in?")
+    //   return
+    // }
     const partnerNames = `${partnerName[0]}&${partnerName[1]}`
     const getPartnerDetails = () => {
       return [
@@ -90,8 +94,10 @@ export default class CreateCertificate extends React.Component {
         value: web3.toWei(bid, "ether"),
       },
       (err, result) => {
-        console.log("Err:", err)
-        console.log("Result:", err)
+        sendingData = false
+        if (!err) {
+          window.location.href = `/#/address/${this.address}`
+        }
       }
     )
   }
@@ -106,73 +112,73 @@ export default class CreateCertificate extends React.Component {
 
   render() {
     const {
-      web3,
-      message,
-      bid,
       partnerName,
       partnerBodyType,
       partnerHairColor,
       partnerSkinColor,
       partnerClothesColor,
     } = this
-
-    const address =
-      web3 && web3.eth.accounts[0]
-        ? web3.eth.accounts[0]
-        : "[no address detected]"
+    // Handle no address existing
     return (
       <div>
-        <div>Ethereum address:</div>
-        <div>{address}</div>
-        <div>
-          <EditablePartner
-            partnerDetails={{
-              partnerNumber: 0,
-              partnerName,
-              partnerBodyType,
-              partnerHairColor,
-              partnerSkinColor,
-              partnerClothesColor,
-            }}
-          />
-          <EditablePartner
-            partnerDetails={{
-              partnerNumber: 1,
-              partnerName,
-              partnerBodyType,
-              partnerHairColor,
-              partnerSkinColor,
-              partnerClothesColor,
-            }}
-          />
-        </div>
-        <div>Optional message:</div>
-        <div>
-          <input
-            type="textarea"
-            value={message}
-            onChange={this.handleChangeMessage}
-            placeholder="E.g. Immutible Love triumps all <3"
-            size="140"
-          />
+        {this.sendingData ?
+          (<div>
+            Sending Data...
+          </div>)
+          :
+          (<div>
+            <div>Ethereum address:</div>
+            <div>{this.address}</div>
+            <div className={styles.partnerContainer}>
+              <EditablePartner
+                partnerDetails={{
+                  partnerNumber: 0,
+                  partnerName,
+                  partnerBodyType,
+                  partnerHairColor,
+                  partnerSkinColor,
+                  partnerClothesColor,
+                }}
+              />
+              <EditablePartner
+                partnerDetails={{
+                  partnerNumber: 1,
+                  partnerName,
+                  partnerBodyType,
+                  partnerHairColor,
+                  partnerSkinColor,
+                  partnerClothesColor,
+                }}
+              />
+            </div>
+            <div>Optional message:</div>
+            <div>
+              <input
+                type="textarea"
+                value={this.message}
+                onChange={this.handleChangeMessage}
+                placeholder="E.g. Immutible love forever"
+                size="140"
+              />
+            </div>
+
+            <div>Price: (minimum {MINIMUM_COST})</div>
+            <div>
+              <input
+                type="number"
+                value={this.bid}
+                onChange={this.handleChangeBid}
+                placeholder={MINIMUM_COST}
+              />ETH
         </div>
 
-        <div>Price: (minimum {MINIMUM_COST})</div>
-        <div>
-          <input
-            type="number"
-            value={bid}
-            onChange={this.handleChangeBid}
-            placeholder={MINIMUM_COST}
-          />ETH
-        </div>
-
-        <div>
-          <button type="button" onClick={this.createCertificate}>
-            CREATE
+            <div>
+              <button type="button" onClick={this.createCertificate}>
+                CREATE
           </button>
-        </div>
-      </div>
-    )
+            </div>
+          </div>
+          )}
+      </div>)
   }
 }

@@ -7,6 +7,7 @@ import Main from "./components/Main"
 import CheckAddress from "./components/CheckAddress"
 import ViewCertificate from "./components/ViewCertificate"
 import CreateCertificate from "./components/CreateCertificate"
+import About from "./components/About"
 
 class App extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Main} />
+            <Route exact path="/about" component={About} />
             <Route exact path="/find" component={CheckAddress} />
             <Route exact path="/create" component={CreateCertificate} />
             <Route exact path="/address/:address" component={ViewCertificate} />

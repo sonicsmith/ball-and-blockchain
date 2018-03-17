@@ -6,7 +6,7 @@ export default class Main extends React.Component {
     return (
       <div>
         <h3>
-          Create a permanent, immutable record of your marriage, on the
+          Create a permanent, immutable record of your love, on the
           blockchain.
         </h3>
         <div>
@@ -14,6 +14,9 @@ export default class Main extends React.Component {
         </div>
         <div>
           <Link to="/find">VIEW CERTIFICATE</Link>
+        </div>
+        <div>
+          <Link to="/about">LEARN MORE</Link>
         </div>
       </div>
     )

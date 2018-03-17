@@ -53,7 +53,8 @@ export default class EditablePartner extends React.Component {
       partnerClothesColor,
     } = this.props.partnerDetails
     return (
-      <div>
+      <span>
+
         <div>Partner {partnerNumber + 1} name:</div>
         <div>
           <input
@@ -100,7 +101,8 @@ export default class EditablePartner extends React.Component {
             onChange={this.handleChangeClothesColor(partnerNumber)}
           />
         </div>
-      </div>
+
+      </span>
     )
   }
 }

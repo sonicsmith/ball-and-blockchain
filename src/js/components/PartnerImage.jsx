@@ -8,12 +8,12 @@ export default class PartnerImage extends React.Component {
     const { partnerNumber, partnerBodyType } = this.props.partnerDetails
     const bodyType = partnerBodyType[partnerNumber]
     return (
-      <div>
+      <span>
         {bodyType == 0 &&
           <Male partnerDetails={this.props.partnerDetails} />}
         {bodyType == 1 &&
           <Female partnerDetails={this.props.partnerDetails} />}
-      </div>
+      </span>
     )
   }
 }
