@@ -10,7 +10,7 @@ import PartnerImage from "./PartnerImage"
 export default class EditablePartner extends React.Component {
   changeBodyType = direction => {
     return () => {
-      const index = this.props.partnerNumber
+      const index = this.props.partnerDetails.partnerNumber
       const newType =
         this.props.partnerDetails.partnerBodyType[index] + direction
       if (newType >= 0 && newType <= NUM_BODY_TYPES) {
@@ -21,28 +21,27 @@ export default class EditablePartner extends React.Component {
 
   handleChangeName = index => {
     return event => {
-      event.preventDefault()
       this.props.partnerDetails.partnerName[index] = event.target.value
     }
   }
 
   handleChangeSkinColor = index => {
     return event => {
-      event.preventDefault()
       this.props.partnerDetails.partnerSkinColor[index] = event.target.value
     }
   }
 
   handleChangeClothesColor = index => {
     return event => {
-      event.preventDefault()
+      console.log("handleChangeClothesColor", event.target.value)
+      console.log(this.props.partnerDetails.partnerClothesColor[index])
       this.props.partnerDetails.partnerClothesColor[index] = event.target.value
     }
   }
 
   render() {
-    const partnerNumber = this.props.partnerNumber
     const {
+      partnerNumber,
       partnerName,
       partnerBodyType,
       partnerSkinColor,

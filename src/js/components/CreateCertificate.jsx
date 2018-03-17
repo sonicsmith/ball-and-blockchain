@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { observable, action } from "mobx"
 import { observer } from "mobx-react"
 import Web3 from "web3"
+import { abi } from "../../../build/contracts/MarriageCertificates.json"
 
 import EditablePartner from "./EditablePartner"
 
@@ -22,9 +23,9 @@ export default class CreateCertificate extends React.Component {
     if (typeof web3 != "undefined") {
       console.log("Using web3 detected from external source")
       this.web3 = new Web3(web3.currentProvider)
-      const myContract = this.web3.eth.contract(abi.abi)
+      const myContract = this.web3.eth.contract(abi)
       this.contractInstance = myContract.at(
-        "0x68bfc43672ba4f9d22cccd22b0ca33b674717e9b"
+        "0xeb699b937100230b3e117eefc68f95fda598ded4"
       )
     }
   }
@@ -60,7 +61,7 @@ export default class CreateCertificate extends React.Component {
     console.log("trying to create...")
     contractInstance.createCertificate(
       partnerNames,
-      getPartnerDetails(),
+      getPartnerDetails().join(""),
       message,
       {
         gas: 300000,
@@ -105,8 +106,8 @@ export default class CreateCertificate extends React.Component {
         <div>{address}</div>
 
         <EditablePartner
-          partnerNumber={0}
           partnerDetails={{
+            partnerNumber: 0,
             partnerName,
             partnerBodyType,
             partnerSkinColor,
@@ -114,8 +115,8 @@ export default class CreateCertificate extends React.Component {
           }}
         />
         <EditablePartner
-          partnerNumber={1}
           partnerDetails={{
+            partnerNumber: 1,
             partnerName,
             partnerBodyType,
             partnerSkinColor,
