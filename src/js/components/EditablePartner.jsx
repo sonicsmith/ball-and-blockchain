@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { observable, action } from "mobx"
 import { observer } from "mobx-react"
+import styles from "../../css/styles.css"
 
 const NUM_BODY_TYPES = 2
 
@@ -53,7 +54,7 @@ export default class EditablePartner extends React.Component {
       partnerClothesColor,
     } = this.props.partnerDetails
     return (
-      <span>
+      <div className={styles.partnerDetailsContainer}>
 
         <div>Partner {partnerNumber + 1} name:</div>
         <div>
@@ -102,7 +103,7 @@ export default class EditablePartner extends React.Component {
           />
         </div>
 
-      </span>
+      </div>
     )
   }
 }

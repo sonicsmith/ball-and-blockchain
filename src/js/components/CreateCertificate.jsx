@@ -130,6 +130,7 @@ export default class CreateCertificate extends React.Component {
             <div>Ethereum address:</div>
             <div>{this.address}</div>
             <div className={styles.partnerContainer}>
+
               <EditablePartner
                 partnerDetails={{
                   partnerNumber: 0,
@@ -140,6 +141,7 @@ export default class CreateCertificate extends React.Component {
                   partnerClothesColor,
                 }}
               />
+
               <EditablePartner
                 partnerDetails={{
                   partnerNumber: 1,
@@ -150,6 +152,7 @@ export default class CreateCertificate extends React.Component {
                   partnerClothesColor,
                 }}
               />
+
             </div>
             <div>Optional message:</div>
             <div>
