@@ -10,10 +10,11 @@ import EditablePartner from "./EditablePartner"
 const MINIMUM_COST = 0.01
 
 const views = {
-  NO_ADDRESS: 0,
-  EDITING: 1,
-  SENDING: 2,
-  ERROR: 3,
+  NO_WEB3: 0,
+  NO_ADDRESS: 1,
+  EDITING: 2,
+  SENDING: 3,
+  ERROR: 4,
 }
 
 
@@ -50,7 +51,7 @@ export default class CreateCertificate extends React.Component {
       )
       // this.address = web3.eth.accounts[0]
     } else {
-      console.log("No web3")
+      this.currentView = views.NO_WEB3
     }
     for (let i = 0; i < 2; i++) {
       this.partnerBodyType[i] = Math.floor(Math.random() * 2)
@@ -198,6 +199,12 @@ export default class CreateCertificate extends React.Component {
         {this.currentView == views.ERROR &&
           (<div>
             Certificate not created
+          </div>)}
+
+        {this.currentView == views.NO_WEB3 &&
+          (<div>
+            Web3 plugin needed to access blockchain.
+            We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
 
       </div>
