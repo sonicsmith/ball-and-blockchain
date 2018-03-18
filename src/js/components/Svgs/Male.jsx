@@ -9,7 +9,7 @@ export default class Male extends React.Component {
     const shouldFlip = partnerNumber == 0 ? 1 : -1
     const transform = `scale(${shouldFlip},1)`
     const background = "#e6e6e6"
-    //TODO: Scale images on broswer side
+    // TODO: Scale images on broswer side
     return (
       <svg
         version="1.1"
@@ -17,8 +17,8 @@ export default class Male extends React.Component {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        width="160px"
-        height="320px"
+        width="100px"
+        height="200px"
         viewBox="0 0 16 32"
         transform={transform}>
         <path

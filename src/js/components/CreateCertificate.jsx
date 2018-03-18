@@ -9,14 +9,21 @@ import EditablePartner from "./EditablePartner"
 
 const MINIMUM_COST = 0.01
 
+const views = {
+  NO_ADDRESS: 0,
+  EDITING: 1,
+  SENDING: 2,
+  ERROR: 3,
+}
+
 
 const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
+  const letters = "0123456789ABCDEF"
+  let color = "#"
   for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+    color += letters[Math.floor(Math.random() * 16)]
   }
-  return color;
+  return color
 }
 
 @observer
@@ -30,6 +37,7 @@ export default class CreateCertificate extends React.Component {
   @observable message = ""
   @observable bid = MINIMUM_COST
   @observable sendingData = false
+  @observable currentView = views.EDITING
 
   constructor() {
     super()
@@ -40,7 +48,7 @@ export default class CreateCertificate extends React.Component {
       this.contractInstance = myContract.at(
         "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
-      this.address = web3.eth.accounts[0]
+      // this.address = web3.eth.accounts[0]
     } else {
       console.log("No web3")
     }
@@ -96,7 +104,7 @@ export default class CreateCertificate extends React.Component {
       (err, result) => {
         sendingData = false
         if (!err) {
-          window.location.href = `/#/address/${this.address}`
+          window.location.href = `/#/address/${web3.eth.accounts[0]}`
         }
       }
     )
@@ -121,16 +129,18 @@ export default class CreateCertificate extends React.Component {
     // Handle no address existing
     return (
       <div>
-        {this.sendingData ?
-          (<div>
-            Sending Data...
-          </div>)
-          :
-          (<div>
-            <div>Ethereum address:</div>
-            <div>{this.address}</div>
-            <div className={styles.partnerContainer}>
 
+        {this.currentView == views.NO_ADDRESS &&
+          (<div>
+            Cannot find address, are you logged in?
+          </div>)}
+
+
+        {this.currentView == views.EDITING &&
+          (<div>
+            {/* <div>Ethereum address:</div>
+            <div>{this.address}</div> */}
+            <div className={styles.partnerContainer}>
               <EditablePartner
                 partnerDetails={{
                   partnerNumber: 0,
@@ -141,7 +151,6 @@ export default class CreateCertificate extends React.Component {
                   partnerClothesColor,
                 }}
               />
-
               <EditablePartner
                 partnerDetails={{
                   partnerNumber: 1,
@@ -152,19 +161,16 @@ export default class CreateCertificate extends React.Component {
                   partnerClothesColor,
                 }}
               />
-
             </div>
             <div>Optional message:</div>
             <div>
-              <input
-                type="textarea"
+              <textarea
                 value={this.message}
                 onChange={this.handleChangeMessage}
                 placeholder="E.g. Immutible love forever"
-                size="140"
+                rows={4}
               />
             </div>
-
             <div>Price: (minimum {MINIMUM_COST})</div>
             <div>
               <input
@@ -174,7 +180,6 @@ export default class CreateCertificate extends React.Component {
                 placeholder={MINIMUM_COST}
               />ETH
         </div>
-
             <div>
               <button type="button" onClick={this.createCertificate}>
                 CREATE
@@ -182,6 +187,20 @@ export default class CreateCertificate extends React.Component {
             </div>
           </div>
           )}
-      </div>)
+
+
+        {this.currentView == views.SENDING &&
+          (<div>
+            Sending Data...
+          </div>)}
+
+
+        {this.currentView == views.ERROR &&
+          (<div>
+            Certificate not created
+          </div>)}
+
+      </div>
+    )
   }
 }

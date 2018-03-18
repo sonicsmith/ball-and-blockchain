@@ -13,10 +13,14 @@ export default class EditablePartner extends React.Component {
     return () => {
       const { partnerNumber, partnerBodyType } = this.props.partnerDetails
       const index = partnerNumber
-      const newType = partnerBodyType[index] + direction
-      if (newType >= 0 && newType < NUM_BODY_TYPES) {
-        partnerBodyType[index] = newType
+      let newType = partnerBodyType[index] + direction
+      if (newType < 0) {
+        newType = NUM_BODY_TYPES - 1
       }
+      if (newType > NUM_BODY_TYPES - 1) {
+        newType = 0
+      }
+      partnerBodyType[index] = newType
     }
   }
 
