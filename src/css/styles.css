@@ -16,11 +16,11 @@ html {
 }
 
 .center-all {
-  padding: 20;
+  padding: 5;
   text-align: center;
 }
 
-:local(.partnerContainer) {
+.partnerContainer {
   display: inline-block;
   flex-direction: row;
   justify-content: center;
@@ -29,7 +29,7 @@ html {
   color: black;
 }
 
-:local(.partnerDetailsContainer) {
+.partnerDetailsContainer {
   flex-direction: column;
   display: inline-block;
   background-color: #e6e6e6;
@@ -38,23 +38,53 @@ html {
   padding: 10;
 }
 
-:local(.certificateContainer) {
+.certificateContainer {
   display: inline-block;
   background-color: #e6e6e6;
   border: solid;
   color: black;
-  padding: 20;
+  padding-top: 5;
+  padding-left: 30;
+  padding-right: 30;
+  padding-bottom: 20;
+  width: 60%;
 }
 
-:local(.editableMessage) {
+.editablePartnerDetails {
+  padding: 2;
+}
+
+.editableMessage {
   padding-top: 20;
   padding-bottom: 10;
 }
 
-:local(.editableBidValue) {
-  padding-top: 10;
-  padding-bottom: 10;
+.editableBidValue {
+  padding: 10;
 }
+
+.checkAddressBox {
+  padding: 10;
+  border-radius: 4px;
+}
+
+.checkAddressContainer {
+  padding: 10;
+}
+
+.checkAddressButton {
+  padding: 7;
+  border-radius: 4px;
+}
+
+.aboutText {
+  width: 50%;
+  display: inline-block;
+}
+
+/* .checkAddressButtonContainer {
+  padding: 10;
+} */
 
 /* FROM HONEST */
 

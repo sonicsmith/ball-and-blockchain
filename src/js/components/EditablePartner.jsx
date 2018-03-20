@@ -58,7 +58,7 @@ export default class EditablePartner extends React.Component {
       partnerClothesColor,
     } = this.props.partnerDetails
     return (
-      <div className={styles.partnerDetailsContainer}>
+      <div className="partnerDetailsContainer">
 
         <div>Partner {partnerNumber + 1} name:</div>
         <div>
@@ -71,13 +71,13 @@ export default class EditablePartner extends React.Component {
 
         <PartnerImage partnerDetails={this.props.partnerDetails} />
 
-        <div>
+        <div className="editablePartnerDetails">
           Body type:{" "}
           <button onClick={this.changeBodyType(-1)}>{"<"}</button>
           <button onClick={this.changeBodyType(+1)}>{">"}</button>
         </div>
 
-        <div>
+        <div className="editablePartnerDetails">
           Hair color:{" "}
           <input
             type="color"
@@ -86,7 +86,7 @@ export default class EditablePartner extends React.Component {
           />
         </div>
 
-        <div>
+        <div className="editablePartnerDetails">
           Skin color:{" "}
           <input
             type="color"
@@ -95,7 +95,7 @@ export default class EditablePartner extends React.Component {
           />
         </div>
 
-        <div>
+        <div className="editablePartnerDetails">
           Clothes color:{" "}
           <input
             type="color"

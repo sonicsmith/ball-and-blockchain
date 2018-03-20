@@ -43,7 +43,8 @@ export default class ViewCertificate extends React.Component {
         console.log(result)
         this.setState({ resultReturned: true })
         if (!err) {
-          const bid = result[0]
+          console.log(result[0].toNumber())
+          const bid = this.web3.fromWei(result[0].toNumber(), "ether")
           const names = result[1]
           const nameSplitIndex = names.indexOf("&")
           let partnerDetails = result[2]
@@ -52,14 +53,14 @@ export default class ViewCertificate extends React.Component {
             partnerDetails.charAt(1)
           ]
           const colors = partnerDetails.split("#")
-          const blockNumber = result[4].c[0]
+          const blockNumber = result[4].toNumber()
           const timeStamp = web3.eth.getBlock(blockNumber, (err, result) => {
             if (!err) {
               this.setState({ timestamp: result.timestamp })
             }
           })
           this.setState({
-            bid: this.web3.toWei(bid, "ether"),
+            bid: bid,
             partnerName: names.split("&"),
             partnerBodyType: bodyType,
             partnerHairColor: [
@@ -101,12 +102,12 @@ export default class ViewCertificate extends React.Component {
       resultReturned
     } = this.state
     return (
-      <div className="center-all">
-        <div className={styles.certificateContainer} >
+      <div className="center-all" style={{ padding: 20 }}>
+        <div className="certificateContainer" >
           <h3>Certificate Address: {address}</h3>
           {resultReturned && blockNumber != 0 ? (
             <div>
-              <div className={styles.partnerContainer}>
+              <div>
                 <PartnerImage partnerDetails={{
                   partnerNumber: 0,
                   partnerName,
@@ -127,9 +128,11 @@ export default class ViewCertificate extends React.Component {
               <h1>
                 {partnerName[0]} {"&"} {partnerName[1]}
               </h1>
-              were at {timestamp}, Linux Epoch Time, forever inscribed on block {blockNumber} of the
+              <div>
+                were at {timestamp}, Unix epoch time, forever inscribed on block {blockNumber} of the
             Ethereum blockchain with the value of {bid} ETH.
-            <div>{message}</div>
+            </div>
+              <div>{message}</div>
             </div>
           ) :
 

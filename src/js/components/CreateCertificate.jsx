@@ -124,7 +124,7 @@ export default class CreateCertificate extends React.Component {
         {this.currentView == views.EDITING &&
           (<div>
             <h3>Enter details of your certificate below:</h3>
-            <div className={styles.partnerContainer}>
+            <div className="partnerContainer">
               <EditablePartner
                 partnerDetails={{
                   partnerNumber: 0,
@@ -146,9 +146,8 @@ export default class CreateCertificate extends React.Component {
                 }}
               />
             </div>
-            <div className={styles.editableMessage}>
+            <div className="editableMessage">
               <textarea
-                className="editableMessage"
                 value={this.message}
                 onChange={this.handleChangeMessage}
                 placeholder="Optional Message"
@@ -159,7 +158,7 @@ export default class CreateCertificate extends React.Component {
             <div>
               Bid Value: (min {MINIMUM_COST})
             </div>
-            <div className={styles.editableBidValue}>
+            <div className="editableBidValue">
               <input
                 type="number"
                 value={this.bid}

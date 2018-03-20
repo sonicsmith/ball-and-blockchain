@@ -55,20 +55,28 @@ export default class CheckAddress extends React.Component {
         {this.state.hasWeb3 ?
           (<div>
             <div>
-              Enter an address below to see if a certificate exists and view it
-        </div>
+              <h3>Enter an address below to view a certificate if one exists</h3>
+            </div>
             <div>
-              <input
-                type="text"
-                placeholder="Enter Ethereum address here"
-                value={this.props.address}
-                onChange={this.handleChange}
-                size="42"
-              />
-              <button type="button" onClick={this.findScreen} disabled={!isValidAddress(this.state.address)}>
-                {isValidAddress(this.state.address) ? (<div>&#x1F50D;</div>) : (<div>/</div>)}
+              <span className="checkAddressContainer">
+                <input
+                  className="checkAddressBox"
+                  type="text"
+                  placeholder="Enter Ethereum address here"
+                  value={this.props.address}
+                  onChange={this.handleChange}
+                  size="42"
+                />
+              </span>
+              <span className="checkAddressButtonContainer">
+                <button
+                  className="checkAddressButton"
+                  type="button"
+                  onClick={this.findScreen}
+                  disabled={!isValidAddress(this.state.address)}>
+                  &#x1F50D;
               </button>
-
+              </span>
             </div>
           </div>) : (<div>
             Web3 plugin needed to access blockchain.
