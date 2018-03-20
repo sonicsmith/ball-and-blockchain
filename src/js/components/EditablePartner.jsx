@@ -72,16 +72,13 @@ export default class EditablePartner extends React.Component {
         <PartnerImage partnerDetails={this.props.partnerDetails} />
 
         <div>
-          Partner {partnerNumber + 1} body type:{" "}
-          {partnerBodyType[partnerNumber]}
-        </div>
-        <div>
+          Body type:{" "}
           <button onClick={this.changeBodyType(-1)}>{"<"}</button>
           <button onClick={this.changeBodyType(+1)}>{">"}</button>
         </div>
 
-        <div>Partner {partnerNumber + 1} hair color:</div>
         <div>
+          Hair color:{" "}
           <input
             type="color"
             value={partnerHairColor[partnerNumber]}
@@ -89,8 +86,8 @@ export default class EditablePartner extends React.Component {
           />
         </div>
 
-        <div>Partner {partnerNumber + 1} skin color:</div>
         <div>
+          Skin color:{" "}
           <input
             type="color"
             value={partnerSkinColor[partnerNumber]}
@@ -98,8 +95,8 @@ export default class EditablePartner extends React.Component {
           />
         </div>
 
-        <div>Partner {partnerNumber + 1} clothes color:</div>
         <div>
+          Clothes color:{" "}
           <input
             type="color"
             value={partnerClothesColor[partnerNumber]}

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { observable, action } from "mobx"
+import { observable, computed } from "mobx"
 import { observer } from "mobx-react"
 import Web3 from "web3"
 import { abi } from "../../../build/contracts/MarriageCertificates.json"
@@ -14,7 +14,8 @@ const views = {
   NO_ADDRESS: 1,
   EDITING: 2,
   SENDING: 3,
-  ERROR: 4,
+  CREATED: 4,
+  ERROR: 5,
 }
 
 
@@ -31,14 +32,19 @@ const getRandomColor = () => {
 export default class CreateCertificate extends React.Component {
   @observable address = ""
   @observable partnerName = ["", ""]
-  @observable partnerBodyType = [0, 0]
+  @observable partnerBodyType = [0, 1]
   @observable partnerHairColor = ["#000000", "#000000"]
-  @observable partnerSkinColor = ["#000000", "#000000"]
-  @observable partnerClothesColor = ["#000000", "#000000"]
+  @observable partnerSkinColor = ["#ffe0aa", "#a0824e"]
+  @observable partnerClothesColor = ["#000000", "#fff0e2"]
   @observable message = ""
   @observable bid = MINIMUM_COST
-  @observable sendingData = false
   @observable currentView = views.EDITING
+  @observable transactionHash = 0
+
+  @computed get transactionUrl() {
+    return `https://ropsten.etherscan.io/tx/${this.transactionHash}`
+    // return `https://etherscan.io/tx/${this.transactionHash}`
+  }
 
   constructor() {
     super()
@@ -49,63 +55,45 @@ export default class CreateCertificate extends React.Component {
       this.contractInstance = myContract.at(
         "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
-      // this.address = web3.eth.accounts[0]
     } else {
       this.currentView = views.NO_WEB3
-    }
-    for (let i = 0; i < 2; i++) {
-      this.partnerBodyType[i] = Math.floor(Math.random() * 2)
-      this.partnerHairColor[i] = getRandomColor()
-      this.partnerSkinColor[i] = getRandomColor()
-      this.partnerClothesColor[i] = getRandomColor()
     }
   }
 
   createCertificate = () => {
-    sendingData = true
-    const {
-      web3,
-      contractInstance,
-      partnerName,
-      partnerBodyType,
-      partnerHairColor,
-      partnerSkinColor,
-      partnerClothesColor,
-      message,
-      bid,
-    } = this
-
-    // if (!web3 || !web3.eth.accounts[0]) {
-    //   alert("No ethereum address detected. Are you logged in?")
-    //   return
-    // }
-    const partnerNames = `${partnerName[0]}&${partnerName[1]}`
-    const getPartnerDetails = () => {
-      return [
-        partnerBodyType[0],
-        partnerBodyType[1],
-        partnerHairColor[0],
-        partnerHairColor[1],
-        partnerSkinColor[0],
-        partnerSkinColor[1],
-        partnerClothesColor[0],
-        partnerClothesColor[1],
-      ]
+    if (!web3 || !web3.eth.accounts[0]) {
+      alert("No ethereum address detected. Are you logged in?")
+      return
     }
+    const partnerNames = `${this.partnerName[0]}&${this.partnerName[1]}`
+    const partnerDetails = [
+      this.partnerBodyType[0],
+      this.partnerBodyType[1],
+      this.partnerHairColor[0],
+      this.partnerHairColor[1],
+      this.partnerSkinColor[0],
+      this.partnerSkinColor[1],
+      this.partnerClothesColor[0],
+      this.partnerClothesColor[1],
+    ]
+
     console.log("trying to create:", partnerNames)
-    contractInstance.createCertificate(
+    console.log(partnerDetails.join(""))
+    this.contractInstance.createCertificate(
       partnerNames,
-      getPartnerDetails().join(""),
-      message,
+      partnerDetails.join(""),
+      this.message,
       {
         gas: 300000,
-        from: web3.eth.accounts[0],
-        value: web3.toWei(bid, "ether"),
+        from: this.web3.eth.accounts[0],
+        value: this.web3.toWei(this.bid, "ether"),
       },
       (err, result) => {
-        sendingData = false
         if (!err) {
-          window.location.href = `/#/address/${web3.eth.accounts[0]}`
+          this.transactionHash = result
+          this.currentView = views.SENDING
+        } else {
+          this.currentView = views.ERROR
         }
       }
     )
@@ -116,7 +104,10 @@ export default class CreateCertificate extends React.Component {
   }
 
   handleChangeBid = event => {
-    this.bid = event.target.value
+    const bid = event.target.value
+    if (bid >= MINIMUM_COST) {
+      this.bid = bid
+    }
   }
 
   render() {
@@ -129,18 +120,10 @@ export default class CreateCertificate extends React.Component {
     } = this
     // Handle no address existing
     return (
-      <div>
-
-        {this.currentView == views.NO_ADDRESS &&
-          (<div>
-            Cannot find address, are you logged in?
-          </div>)}
-
-
+      <div className="center-all">
         {this.currentView == views.EDITING &&
           (<div>
-            {/* <div>Ethereum address:</div>
-            <div>{this.address}</div> */}
+            <h3>Enter details of your certificate below:</h3>
             <div className={styles.partnerContainer}>
               <EditablePartner
                 partnerDetails={{
@@ -163,22 +146,26 @@ export default class CreateCertificate extends React.Component {
                 }}
               />
             </div>
-            <div>Optional message:</div>
-            <div>
+            <div className={styles.editableMessage}>
               <textarea
+                className="editableMessage"
                 value={this.message}
                 onChange={this.handleChangeMessage}
-                placeholder="E.g. Immutible love forever"
-                rows={4}
+                placeholder="Optional Message"
+                rows={3}
+                cols={40}
               />
             </div>
-            <div>Price: (minimum {MINIMUM_COST})</div>
             <div>
+              Bid Value: (min {MINIMUM_COST})
+            </div>
+            <div className={styles.editableBidValue}>
               <input
                 type="number"
                 value={this.bid}
                 onChange={this.handleChangeBid}
                 placeholder={MINIMUM_COST}
+                step={0.01}
               />ETH
         </div>
             <div>
@@ -190,9 +177,16 @@ export default class CreateCertificate extends React.Component {
           )}
 
 
+        {this.currentView == views.NO_ADDRESS &&
+          (<div>
+            Cannot find address, are you logged in?
+          </div>)}
+
+
         {this.currentView == views.SENDING &&
           (<div>
-            Sending Data...
+            Transaction being processed...
+            <a href={this.transactionUrl}>Click here for progress</a>
           </div>)}
 
 
@@ -201,10 +195,17 @@ export default class CreateCertificate extends React.Component {
             Certificate not created
           </div>)}
 
+
         {this.currentView == views.NO_WEB3 &&
           (<div>
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
+          </div>)}
+
+
+        {this.currentView == views.CREATED &&
+          (<div>
+            Transaction successful, wait for processing:
           </div>)}
 
       </div>

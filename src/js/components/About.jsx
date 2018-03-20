@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 export default class About extends React.Component {
   render() {
     return (
-      <div>
+      <div className="center-all">
         <h3>
           Create a permanent, immutable record of your love, on the
           blockchain.

@@ -1,3 +1,25 @@
+html {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+.body {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    background: #fff;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.center-all {
+  padding: 20;
+  text-align: center;
+}
+
 :local(.partnerContainer) {
   display: inline-block;
   flex-direction: row;
@@ -6,6 +28,7 @@
   border: solid;
   color: black;
 }
+
 :local(.partnerDetailsContainer) {
   flex-direction: column;
   display: inline-block;
@@ -14,10 +37,99 @@
   border-color:  #eeeeee;
   padding: 10;
 }
+
 :local(.certificateContainer) {
   display: inline-block;
   background-color: #e6e6e6;
   border: solid;
   color: black;
   padding: 20;
+}
+
+:local(.editableMessage) {
+  padding-top: 20;
+  padding-bottom: 10;
+}
+
+:local(.editableBidValue) {
+  padding-top: 10;
+  padding-bottom: 10;
+}
+
+/* FROM HONEST */
+
+.gtco-nav {
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding: 20px 0;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.7);
+}
+@media screen and (max-width: 768px) {
+  .gtco-nav {
+    padding: 20px 0;
+    display: none;
+  }
+}
+.gtco-nav a {
+  padding: 5px 10px;
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent;
+}
+@media screen and (max-width: 768px) {
+  .gtco-nav .menu-1, .gtco-nav .menu-2 {
+    display: none;
+  }
+}
+.gtco-nav ul {
+  padding: 0;
+  margin: 2px 0 0 0;
+}
+.gtco-nav ul li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: inline;
+}
+.gtco-nav ul li > a {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: .08em;
+  padding: 30px 10px;
+  color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+.gtco-nav ul li > a:hover, .gtco-nav ul li > a:focus, .gtco-nav ul li > a:active {
+  color: white;
+}
+.gtco-nav ul li.btn-cta a {
+  color: #66D37E;
+}
+.gtco-nav ul li.btn-cta a span {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 4px 20px;
+  color: #fff;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px;
+}
+.gtco-nav ul li.btn-cta a:hover span {
+  background: #fff;
+  color: #66D37E;
+}
+.activeLink {
+  color: #66D37E !important;
 }

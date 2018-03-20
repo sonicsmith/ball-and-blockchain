@@ -6,8 +6,6 @@ import styles from "../../css/styles.css"
 import ViewablePartner from "./ViewablePartner"
 import PartnerImage from "./PartnerImage"
 
-const weiInEth = 1000000000000000000
-
 const isValidAddress = (h) => {
   if (!h || h.length != 42) {
     return false
@@ -40,7 +38,6 @@ export default class ViewCertificate extends React.Component {
         "0xf346a2f4f7c727ded9092106046cabb436fc6efa"
       )
     }
-    console.log(this.state.address)
     if (isValidAddress(this.state.address)) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
         console.log(result)
@@ -54,7 +51,6 @@ export default class ViewCertificate extends React.Component {
             partnerDetails.charAt(0),
             partnerDetails.charAt(1)
           ]
-          partnerDetails = partnerDetails.substr(2)
           const colors = partnerDetails.split("#")
           const blockNumber = result[4].c[0]
           const timeStamp = web3.eth.getBlock(blockNumber, (err, result) => {
@@ -63,7 +59,7 @@ export default class ViewCertificate extends React.Component {
             }
           })
           this.setState({
-            bid: bid / weiInEth,
+            bid: this.web3.toWei(bid, "ether"),
             partnerName: names.split("&"),
             partnerBodyType: bodyType,
             partnerHairColor: [
@@ -105,46 +101,48 @@ export default class ViewCertificate extends React.Component {
       resultReturned
     } = this.state
     return (
-      <div className={styles.certificateContainer} >
-        <h3>Certificate Address: {address}</h3>
-        {resultReturned && blockNumber != 0 ? (
-          <div>
-            <div className={styles.partnerContainer}>
-              <PartnerImage partnerDetails={{
-                partnerNumber: 0,
-                partnerName,
-                partnerBodyType,
-                partnerHairColor,
-                partnerSkinColor,
-                partnerClothesColor,
-              }} />
-              <PartnerImage partnerDetails={{
-                partnerNumber: 1,
-                partnerName,
-                partnerBodyType,
-                partnerHairColor,
-                partnerSkinColor,
-                partnerClothesColor,
-              }} />
-            </div>
-            <h1>
-              {partnerName[0]} {"&"} {partnerName[1]}
-            </h1>
-            were at {timestamp}, Linux Epoch Time, forever inscribed on block {blockNumber} of the
+      <div className="center-all">
+        <div className={styles.certificateContainer} >
+          <h3>Certificate Address: {address}</h3>
+          {resultReturned && blockNumber != 0 ? (
+            <div>
+              <div className={styles.partnerContainer}>
+                <PartnerImage partnerDetails={{
+                  partnerNumber: 0,
+                  partnerName,
+                  partnerBodyType,
+                  partnerHairColor,
+                  partnerSkinColor,
+                  partnerClothesColor,
+                }} />
+                <PartnerImage partnerDetails={{
+                  partnerNumber: 1,
+                  partnerName,
+                  partnerBodyType,
+                  partnerHairColor,
+                  partnerSkinColor,
+                  partnerClothesColor,
+                }} />
+              </div>
+              <h1>
+                {partnerName[0]} {"&"} {partnerName[1]}
+              </h1>
+              were at {timestamp}, Linux Epoch Time, forever inscribed on block {blockNumber} of the
             Ethereum blockchain with the value of {bid} ETH.
             <div>{message}</div>
-          </div>
-        ) :
+            </div>
+          ) :
 
-          (<div>
-            {resultReturned && blockNumber == 0 ? (<div>
-              No certificate found
+            (<div>
+              {resultReturned && blockNumber == 0 ? (<div>
+                No certificate found
             </div>) : (<div>
-                {isValidAddress(address) ?
-                  (<div>Searching blockchain for certificate...</div>) : (<div>Address not valid</div>)}
-              </div>)}
-          </div>)}
+                  {isValidAddress(address) ?
+                    (<div>Searching blockchain for certificate...</div>) : (<div>Address not valid</div>)}
+                </div>)}
+            </div>)}
 
+        </div>
       </div>
     )
   }

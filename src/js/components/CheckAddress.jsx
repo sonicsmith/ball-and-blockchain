@@ -51,7 +51,7 @@ export default class CheckAddress extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="center-all">
         {this.state.hasWeb3 ?
           (<div>
             <div>
