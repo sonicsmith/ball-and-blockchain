@@ -158,14 +158,15 @@ export default class CreateCertificate extends React.Component {
             <div>
               Bid Value: (min {MINIMUM_COST})
             </div>
-            <div className="editableBidValue">
+            <div className="editableBidValueContainer">
               <input
+                className="editableBidValue"
                 type="number"
                 value={this.bid}
                 onChange={this.handleChangeBid}
                 placeholder={MINIMUM_COST}
                 step={0.01}
-              />ETH
+              />{"  "}ETH
         </div>
             <div>
               <button type="button" onClick={this.createCertificate}>
