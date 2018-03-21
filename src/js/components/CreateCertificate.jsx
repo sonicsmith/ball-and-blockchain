@@ -7,7 +7,9 @@ import styles from "../../css/styles.css"
 
 import EditablePartner from "./EditablePartner"
 
-const MINIMUM_COST = 0.01
+const certificateTypeNames = [
+  "Bronze", "Silver", "Gold", "Platinum"
+]
 
 const views = {
   NO_WEB3: 0,
@@ -37,9 +39,10 @@ export default class CreateCertificate extends React.Component {
   @observable partnerSkinColor = ["#ffe0aa", "#a0824e"]
   @observable partnerClothesColor = ["#000000", "#fff0e2"]
   @observable message = ""
-  @observable bid = MINIMUM_COST
   @observable currentView = views.EDITING
   @observable transactionHash = 0
+  @observable certificateType = 0
+  @computed get bid() { return (this.certificateType + 1) * 0.01 }
 
   @computed get transactionUrl() {
     return `https://ropsten.etherscan.io/tx/${this.transactionHash}`
@@ -110,6 +113,15 @@ export default class CreateCertificate extends React.Component {
     }
   }
 
+  changeCertificateType = direction => {
+    return () => {
+      let newType = this.certificateType + direction
+      if (newType >= 0 && newType < certificateTypeNames.length) {
+        this.certificateType = newType
+      }
+    }
+  }
+
   render() {
     const {
       partnerName,
@@ -155,23 +167,20 @@ export default class CreateCertificate extends React.Component {
                 cols={40}
               />
             </div>
-            <div>
-              Bid Value: (min {MINIMUM_COST})
-            </div>
             <div className="editableBidValueContainer">
-              <input
-                className="editableBidValue"
-                type="number"
-                value={this.bid}
-                onChange={this.handleChangeBid}
-                placeholder={MINIMUM_COST}
-                step={0.01}
-              />{"  "}ETH
-        </div>
+              Certificate type: {certificateTypeNames[this.certificateType]}
+              <span className="changeCertTypeButtons">
+                <button onClick={this.changeCertificateType(-1)}>{"<"}</button>
+                <button onClick={this.changeCertificateType(+1)}>{">"}</button>
+              </span>
+            </div>
             <div>
+              Cost: {this.bid} ETH
+            </div>
+            <div className="createButton">
               <button type="button" onClick={this.createCertificate}>
                 CREATE
-          </button>
+              </button>
             </div>
           </div>
           )}

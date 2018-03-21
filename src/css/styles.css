@@ -66,6 +66,14 @@ html {
   padding: 10;
 }
 
+.createButton {
+  padding: 10;
+}
+
+.changeCertTypeButtons {
+  padding: 10;
+}
+
 .checkAddressBox {
   padding: 10;
   border-radius: 4px;

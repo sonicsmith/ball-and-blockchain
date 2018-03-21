@@ -40,10 +40,8 @@ export default class ViewCertificate extends React.Component {
     }
     if (isValidAddress(this.state.address)) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
-        console.log(result)
         this.setState({ resultReturned: true })
         if (!err) {
-          console.log(result[0].toNumber())
           const bid = this.web3.fromWei(result[0].toNumber(), "ether")
           const names = result[1]
           const nameSplitIndex = names.indexOf("&")
@@ -101,9 +99,21 @@ export default class ViewCertificate extends React.Component {
       message,
       resultReturned
     } = this.state
+    const borderThickness = bid / 0.01
+    let borderColor
+    switch (bid) {
+      case 0.01: borderColor = "#CD7F32"
+        break;
+      case 0.02: borderColor = "#C0C0C0"
+        break;
+      case 0.03: borderColor = "#D4AF37"
+        break;
+      default: borderColor = "#e5e4e2"
+        break;
+    }
     return (
       <div className="center-all" style={{ padding: 20 }}>
-        <div className="certificateContainer" >
+        <div className="certificateContainer" style={{ borderColor }}>
           <h3>Certificate Address: {address}</h3>
           {resultReturned && blockNumber != 0 ? (
             <div>
