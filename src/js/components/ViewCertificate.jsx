@@ -39,8 +39,10 @@ export default class ViewCertificate extends React.Component {
       )
     }
     if (isValidAddress(this.state.address)) {
+      console.log("Making call for certificate..")
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
         this.setState({ resultReturned: true })
+        console.log("Certificate found")
         if (!err) {
           const bid = this.web3.fromWei(result[0].toNumber(), "ether")
           const names = result[1]
@@ -99,7 +101,7 @@ export default class ViewCertificate extends React.Component {
       message,
       resultReturned
     } = this.state
-    const borderThickness = bid / 0.01
+    // const borderThickness = (bid / 0.01)
     let borderColor
     switch (bid) {
       case 0.01: borderColor = "#CD7F32"
@@ -108,7 +110,7 @@ export default class ViewCertificate extends React.Component {
         break;
       case 0.03: borderColor = "#D4AF37"
         break;
-      default: borderColor = "#e5e4e2"
+      default: borderColor = "#dddddd"
         break;
     }
     return (

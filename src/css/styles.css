@@ -41,6 +41,7 @@ html {
   display: inline-block;
   background-color: #e6e6e6;
   border: solid;
+  border-width: 10;
   color: black;
   padding-top: 5;
   padding-left: 30;

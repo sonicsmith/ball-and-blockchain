@@ -20,7 +20,7 @@ export default class EditablePartner extends React.Component {
       if (newType > NUM_BODY_TYPES - 1) {
         newType = 0
       }
-      partnerBodyType[index] = newType
+      this.props.partnerDetails.partnerBodyType[index] = newType
     }
   }
 
@@ -57,6 +57,9 @@ export default class EditablePartner extends React.Component {
       partnerSkinColor,
       partnerClothesColor,
     } = this.props.partnerDetails
+    // NEEDED TO REGEN image
+    const REGEN = this.props.partnerDetails.partnerBodyType[0]
+    const REGEN2 = this.props.partnerDetails.partnerBodyType[1]
     return (
       <div className="partnerDetailsContainer">
 
