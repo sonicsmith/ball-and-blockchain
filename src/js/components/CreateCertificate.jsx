@@ -16,8 +16,7 @@ const views = {
   NO_ADDRESS: 1,
   EDITING: 2,
   SENDING: 3,
-  CREATED: 4,
-  ERROR: 5,
+  ERROR: 4,
 }
 
 
@@ -45,6 +44,7 @@ export default class CreateCertificate extends React.Component {
   @computed get bid() { return (this.certificateType + 1) * 0.01 }
 
   @computed get transactionUrl() {
+    // TODO: Change this when live
     return `https://ropsten.etherscan.io/tx/${this.transactionHash}`
     // return `https://etherscan.io/tx/${this.transactionHash}`
   }
@@ -187,35 +187,35 @@ export default class CreateCertificate extends React.Component {
 
 
         {this.currentView == views.NO_ADDRESS &&
-          (<div>
+          (<div className="topMessage">
             Cannot find address, are you logged in?
           </div>)}
 
 
         {this.currentView == views.SENDING &&
-          (<div>
+          (<div className="topMessage">
             Transaction being processed...
             <a href={this.transactionUrl}>Click here for progress</a>
           </div>)}
 
 
         {this.currentView == views.ERROR &&
-          (<div>
+          (<div className="topMessage">
             Certificate not created
           </div>)}
 
 
         {this.currentView == views.NO_WEB3 &&
-          (<div>
+          (<div className="topMessage">
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
 
 
-        {this.currentView == views.CREATED &&
-          (<div>
+        {/* {this.currentView == views.CREATED &&
+          (<div className="topMessage">
             Transaction successful, wait for processing:
-          </div>)}
+          </div>)} */}
 
       </div>
     )

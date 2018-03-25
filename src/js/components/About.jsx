@@ -23,9 +23,9 @@ export default class About extends React.Component {
               This record could be used to mark a real marriage, or as a replacement to conventional
               legal / religious marriage. It could be given as a present to a couple, or used as a way
               to mark a wedding anniversary.
+              <div />
               The public address attached to the certificate can continue to be used as a functional
               ethereum address. It could also be used as the address wedding donations like a wishing well.
-              Or the characters from the address could be inscribed onto the wedding ring.
             </p>
             <div style={{ padding: 20 }}>
               <Link to="/create">CREATE NOW</Link>

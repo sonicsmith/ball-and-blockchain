@@ -40,6 +40,7 @@ contract MarriageCertificates {
     ) payable public {
         require(msg.value >= 1 finney);
         require(!CertificateStructs[msg.sender].exists);
+
         address key = msg.sender;
 
         CertificateStructs[key].value = msg.value;

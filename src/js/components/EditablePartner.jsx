@@ -26,7 +26,9 @@ export default class EditablePartner extends React.Component {
 
   handleChangeName = index => {
     return event => {
-      this.props.partnerDetails.partnerName[index] = event.target.value
+      const newValue = event.target.value
+      if (!newValue.includes("&"))
+        this.props.partnerDetails.partnerName[index] = newValue
     }
   }
 

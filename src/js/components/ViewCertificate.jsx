@@ -141,9 +141,9 @@ export default class ViewCertificate extends React.Component {
                 {partnerName[0]} {"&"} {partnerName[1]}
               </h1>
               <div>
-                were at {timestamp}, Unix epoch time, forever inscribed on block {blockNumber} of the
-            Ethereum blockchain with the value of {bid} ETH.
-            </div>
+                <div>were at {timestamp}, Unix epoch time, forever inscribed on block {blockNumber}</div>
+                <div>of the Ethereum blockchain with the value of {bid} ETH.</div>
+              </div>
               <div>{message}</div>
             </div>
           ) :
