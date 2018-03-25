@@ -103,7 +103,11 @@ export default class CreateCertificate extends React.Component {
   }
 
   handleChangeMessage = event => {
-    this.message = event.target.value
+    if (this.message.length < 256) {
+      this.message = event.target.value
+    } else {
+      this.message = this.message.substr(0, 255)
+    }
   }
 
   handleChangeBid = event => {
