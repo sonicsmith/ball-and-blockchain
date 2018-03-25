@@ -35,7 +35,7 @@ export default class CheckAddress extends React.Component {
     if (this.contractInstance) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
         if (!err) {
-          window.location.href = `/#/address/${this.state.address}`
+          window.location.href = `/address/${this.state.address}`
         } else {
           alert("No certificate found for address")
         }
