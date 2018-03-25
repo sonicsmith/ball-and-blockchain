@@ -70,9 +70,9 @@ contract MarriageCertificates {
         }
     }
 
-    function kill() { 
+    function kill() public { 
         if (msg.sender == owner) {
-            suicide(owner);
+            selfdestruct(owner);
         }
     }
 

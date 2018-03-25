@@ -205,7 +205,7 @@ export default class CreateCertificate extends React.Component {
 
         {this.currentView == views.ERROR &&
           (<div className="topMessage">
-            Certificate not created
+            Certificate not created. Your account has not been charged.
           </div>)}
 
 
@@ -214,12 +214,6 @@ export default class CreateCertificate extends React.Component {
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
-
-
-        {/* {this.currentView == views.CREATED &&
-          (<div className="topMessage">
-            Transaction successful, wait for processing:
-          </div>)} */}
 
       </div>
     )
