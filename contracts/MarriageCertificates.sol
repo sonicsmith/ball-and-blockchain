@@ -13,10 +13,9 @@ contract MarriageCertificates {
 
     mapping (address => CertificateStruct) public CertificateStructs;
 
-    address[] private keys;
     address private owner;
     uint256 private minimumCost = 1 finney;
-    uint256 private maxHoldings = 500 finney;
+    uint256 private maxHoldings = 200 finney;
 
 
     function MarriageCertificates(uint256 _minimumCost, uint256 _maxHoldings) public {
@@ -27,10 +26,6 @@ contract MarriageCertificates {
         if (_maxHoldings > 0) {
             maxHoldings = _maxHoldings;
         }
-    }
-
-    function getCertificateKeys() public constant returns (address[]) {
-        return keys;
     }
 
     function createCertificate (
@@ -49,7 +44,6 @@ contract MarriageCertificates {
         CertificateStructs[key].message = message;
         CertificateStructs[key].blockNumber = block.number;
         CertificateStructs[key].exists = true;
-        keys.push(key);
 
         address contractAddress = this;
         if (contractAddress.balance > maxHoldings) {

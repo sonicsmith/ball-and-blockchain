@@ -11,8 +11,7 @@ export default class About extends React.Component {
         </h2>
         <div className="aboutText">
           <div>
-
-            <p>Ball and Blockchain is a decentralised application running on the Ethereum network.<br />
+            <p>Ball and Blockchain is a decentralized application running on the Ethereum network.<br />
               By entering in the details of you and your partner, you are able to make a permanent,
               immutable record of your partnership.
               Once a Ball and Blockchain “marriage certificate“ is created, it cannot be destroyed.
@@ -27,6 +26,10 @@ export default class About extends React.Component {
             <p>
               The public address attached to the certificate can continue to be used as a functional
               ethereum address. It could even be used as the address for wedding donations like a wishing well.
+            </p>
+            <p>
+              To view and create certificates with Ball and Blockchain, you will need a web3 compliant browser
+              or browser plugin, we recommend using <a href="https://metamask.io/">Metamask</a>
             </p>
             <div>
               <span style={{ padding: 20 }}>
