@@ -16,6 +16,7 @@ contract MarriageCertificates {
     address private owner;
     uint256 private minimumCost = 1 finney;
     uint256 private maxHoldings = 200 finney;
+    address[] private keys;
 
 
     function MarriageCertificates(uint256 _minimumCost, uint256 _maxHoldings) public {
@@ -26,6 +27,10 @@ contract MarriageCertificates {
         if (_maxHoldings > 0) {
             maxHoldings = _maxHoldings;
         }
+    }
+
+    function getCertificateKeys() public constant returns (address[]) {
+        return keys;
     }
 
     function createCertificate (
