@@ -64,11 +64,5 @@ contract MarriageCertificates {
         }
     }
 
-    function kill() public { 
-        if (msg.sender == owner) {
-            selfdestruct(owner);
-        }
-    }
-
     function() public payable {}
 }
