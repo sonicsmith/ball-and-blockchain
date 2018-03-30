@@ -104,15 +104,17 @@ export default class ViewCertificate extends React.Component {
     // const borderThickness = (bid / 0.01)
     let borderColor
     switch (bid) {
-      case 0.01: borderColor = "#CD7F32"
+      case "0.01": borderColor = "#CD7F32"
         break;
-      case 0.02: borderColor = "#C0C0C0"
+      case "0.02": borderColor = "#C0C0C0"
         break;
-      case 0.03: borderColor = "#D4AF37"
+      case "0.03": borderColor = "#D4AF37"
         break;
       default: borderColor = "#dddddd"
         break;
     }
+    console.log(typeof bid)
+    console.log(borderColor)
     return (
       <div className="center-all" style={{ padding: 20 }}>
         <div className="certificateContainer" style={{ borderColor }}>
@@ -144,7 +146,7 @@ export default class ViewCertificate extends React.Component {
                 <div>were at {timestamp}, Unix epoch time, forever inscribed on block {blockNumber}</div>
                 <div>of the Ethereum blockchain with the value of {bid} ETH.</div>
               </div>
-              <div>{message}</div>
+              <div className="viewableMessage">{message}</div>
             </div>
           ) :
 
