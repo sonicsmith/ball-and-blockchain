@@ -8,7 +8,7 @@ import CheckAddress from "./components/CheckAddress"
 import ViewCertificate from "./components/ViewCertificate"
 import CreateCertificate from "./components/CreateCertificate"
 import About from "./components/About"
-
+import Contact from "./components/Contact"
 
 class App extends React.Component {
   render() {
@@ -30,7 +30,10 @@ class App extends React.Component {
                       <NavLink to="/find" activeClassName="activeLink">Find</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/about" activeClassName="activeLink">Learn More</NavLink>
+                      <NavLink to="/about" activeClassName="activeLink">About</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/contact" activeClassName="activeLink">Contact</NavLink>
                     </li>
                   </ul>
                 </div>
@@ -38,6 +41,7 @@ class App extends React.Component {
             </div>
           </nav>
           <Switch>
+            <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={About} />
             <Route exact path="/find" component={CheckAddress} />
             <Route exact path="/create" component={CreateCertificate} />
