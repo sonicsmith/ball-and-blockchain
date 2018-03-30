@@ -14,19 +14,13 @@ contract MarriageCertificates {
     mapping (address => CertificateStruct) public CertificateStructs;
 
     address private owner;
-    uint256 private minimumCost = 1 finney;
-    uint256 private maxHoldings = 200 finney;
+    uint256 private constant minimumCost = 1 finney;
+    uint256 private constant maxHoldings = 200 finney;
     address[] private keys;
 
 
-    function MarriageCertificates(uint256 _minimumCost, uint256 _maxHoldings) public {
+    function MarriageCertificates() public {
         owner = msg.sender;
-        if (_minimumCost > 0) {
-            minimumCost = _minimumCost;
-        }
-        if (_maxHoldings > 0) {
-            maxHoldings = _maxHoldings;
-        }
     }
 
     function getCertificateKeys() public constant returns (address[]) {

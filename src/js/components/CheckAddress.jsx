@@ -22,7 +22,7 @@ export default class CheckAddress extends React.Component {
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
       this.contractInstance = myContract.at(
-        "0x3bd27a6eaedd0eb3a286d03196fd194d253d79f9"
+        "0x0facaadd39bec3526405c8d783546faf9de09ee8"
       )
       this.state.hasWeb3 = true
     } else {

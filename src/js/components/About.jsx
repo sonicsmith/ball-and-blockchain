@@ -36,7 +36,7 @@ export default class About extends React.Component {
                 <Link to="/create">CREATE NOW</Link>
               </span>
               <span style={{ padding: 20 }}>
-                <Link to="/address/0x950a2D2076fC8c23FBCa1E2a9752D38e377a2a4c">SEE EXAMPLE</Link>
+                <Link to="/address/0xefdd4c11efd4df6f1173150e89102d343ae50aa4">SEE EXAMPLE</Link>
               </span>
             </div>
 

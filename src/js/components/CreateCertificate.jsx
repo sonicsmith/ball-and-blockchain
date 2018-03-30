@@ -44,9 +44,8 @@ export default class CreateCertificate extends React.Component {
   @computed get bid() { return (this.certificateType + 1) * 0.01 }
 
   @computed get transactionUrl() {
-    // TODO: Change this when live
-    return `https://ropsten.etherscan.io/tx/${this.transactionHash}`
-    // return `https://etherscan.io/tx/${this.transactionHash}`
+    // return `https://ropsten.etherscan.io/tx/${this.transactionHash}`
+    return `https://etherscan.io/tx/${this.transactionHash}`
   }
 
   constructor() {
@@ -56,7 +55,7 @@ export default class CreateCertificate extends React.Component {
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
       this.contractInstance = myContract.at(
-        "0x3bd27a6eaedd0eb3a286d03196fd194d253d79f9"
+        "0x0facaadd39bec3526405c8d783546faf9de09ee8"
       )
     } else {
       this.currentView = views.NO_WEB3
@@ -198,8 +197,8 @@ export default class CreateCertificate extends React.Component {
 
         {this.currentView == views.SENDING &&
           (<div className="topMessage">
-            <p>Transaction being processed...</p>
-            <a href={this.transactionUrl}>Click here for progress</a>
+            <div>Transaction being processed...</div>
+            <div><a href={this.transactionUrl}>Click here for progress</a></div>
           </div>)}
 
 
