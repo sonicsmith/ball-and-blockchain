@@ -3,10 +3,14 @@ const webpack = require("webpack")
 
 module.exports = {
   devtool: "eval",
-  entry: ["./src/js/index"],
+  entry: {
+    "CheckAddress": "./src/js/CheckAddress",
+    "CreateCertificate": "./src/js/CreateCertificate",
+    "ViewCertificate": "./src/js/ViewCertificate",
+  },
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "build.js", // The final file will be created in dist/build.js
+    filename: "[name].js",
     publicPath: "/dist/",
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
