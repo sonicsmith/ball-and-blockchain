@@ -138,6 +138,8 @@ export default class CreateCertificate extends React.Component {
     // Handle no address existing
     return (
       <div className="center-all">
+        <div>.</div>
+        <div>.</div>
         {this.currentView == views.EDITING &&
           (<div>
             <h3>Enter details of your certificate below:</h3>
@@ -179,7 +181,7 @@ export default class CreateCertificate extends React.Component {
                 <button onClick={this.changeCertificateType(+1)}>{">"}</button>
               </span>
             </div>
-            <div>
+            <div style={{ color: "black" }}>
               Cost: {this.bid} ETH
             </div>
             <div className="createButton">
@@ -215,7 +217,6 @@ export default class CreateCertificate extends React.Component {
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
-
       </div>
     )
   }

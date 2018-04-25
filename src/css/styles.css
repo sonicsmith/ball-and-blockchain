@@ -15,7 +15,7 @@ html {
 }
 
 .center-all {
-  padding: 5;
+  padding: 5px;
   text-align: center;
 }
 
@@ -34,62 +34,63 @@ html {
   background-color: #e6e6e6;
   border: solid;
   border-color:  #eeeeee;
-  padding: 10;
+  padding: 10px;
 }
 
 .certificateContainer {
   display: inline-block;
   background-color: #e6e6e6;
   border: solid;
-  border-width: 10;
+  border-width: 10px;
   color: black;
-  padding-top: 10;
-  padding-left: 40;
-  padding-right: 40;
-  padding-bottom: 30;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 30px;
   width: 45%;
 }
 
 .viewableMessage {
-  padding: 10;
-  margin: 10;
+  padding: 10px;
+  margin: 10px;
   background-color: white;
   display: inline-block;
   width: 80%;
 }
 
 .editablePartnerDetails {
-  padding: 2;
+  padding: 2px;
 }
 
 .editableMessage {
-  padding-top: 20;
-  padding-bottom: 10;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .editableBidValueContainer {
-  padding: 10;
+  padding: 10px;
+  color: #000000;
 }
 
 .createButton {
-  padding: 10;
+  padding: 10px;
 }
 
 .changeCertTypeButtons {
-  padding: 10;
+  padding: 10px;
 }
 
 .checkAddressBox {
-  padding: 10;
+  padding: 10px;
   border-radius: 4px;
 }
 
 .checkAddressContainer {
-  padding: 10;
+  padding: 10px;
 }
 
 .checkAddressButton {
-  padding: 7;
+  padding: 7px;
   border-radius: 4px;
 }
 
@@ -99,87 +100,12 @@ html {
 }
 
 .topMessage {
-  padding: 20;
+  padding: 20px;
 }
 
-/* .checkAddressButtonContainer {
-  padding: 10;
-} */
-
-/* FROM HONEST */
-
-.gtco-nav {
-  left: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  padding: 20px 0;
-  z-index: 1001;
-  background: rgba(0, 0, 0, 0.7);
-}
-@media screen and (max-width: 768px) {
-  .gtco-nav {
-    padding: 20px 0;
-    display: none;
-  }
-}
-.gtco-nav a {
-  padding: 5px 10px;
-  color: #fff;
-  text-decoration: none;
-  background-color: transparent;
-}
-@media screen and (max-width: 768px) {
-  .gtco-nav .menu-1, .gtco-nav .menu-2 {
-    display: none;
-  }
-}
-.gtco-nav ul {
-  padding: 0;
-  margin: 2px 0 0 0;
-}
-.gtco-nav ul li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: inline;
-}
-.gtco-nav ul li > a {
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: .08em;
-  padding: 30px 10px;
-  color: rgba(255, 255, 255, 0.7);
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-}
-.gtco-nav ul li > a:hover, .gtco-nav ul li > a:focus, .gtco-nav ul li > a:active {
-  color: white;
-}
-.gtco-nav ul li.btn-cta a {
-  color: #66D37E;
-}
-.gtco-nav ul li.btn-cta a span {
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  padding: 4px 20px;
-  color: #fff;
-  display: -moz-inline-stack;
+.createContainer {
   display: inline-block;
-  zoom: 1;
-  *display: inline;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
-}
-.gtco-nav ul li.btn-cta a:hover span {
-  background: #fff;
-  color: #66D37E;
-}
-.activeLink {
-  color: #66D37E !important;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
 }

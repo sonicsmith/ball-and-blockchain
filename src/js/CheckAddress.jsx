@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import Web3 from "web3"
 import { abi } from "../../build/contracts/MarriageCertificates.json"
+import ViewCertificate from "./ViewCertificate"
 
 const isValidAddress = (h) => {
   if (!h || h.length != 42) {
@@ -17,7 +18,8 @@ export default class CheckAddress extends React.Component {
     console.log("Starting")
     this.state = {
       address: "",
-      hasWeb3: false
+      hasWeb3: false,
+      result: null
     }
     if (typeof web3 != "undefined") {
       console.log("Using web3 detected from external source")
@@ -37,7 +39,7 @@ export default class CheckAddress extends React.Component {
     if (this.contractInstance) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
         if (!err) {
-          window.location.href = `#/address/${this.state.address}`
+          this.setState({ result })
         } else {
           alert("No certificate found for address")
         }
@@ -52,38 +54,47 @@ export default class CheckAddress extends React.Component {
   }
 
   render() {
+    const { result } = this.state
     return (
       <div className="center-all">
+        <div>.</div>
+        <div>.</div>
         {this.state.hasWeb3 ?
           (<div>
-            <div>
-              <h3>Enter an address below to view a certificate if one exists</h3>
-            </div>
-            <div>
-              <span className="checkAddressContainer">
-                <input
-                  className="checkAddressBox"
-                  type="text"
-                  placeholder="Enter Ethereum address here"
-                  value={this.props.address}
-                  onChange={this.handleChange}
-                  size="42"
-                />
-              </span>
-              <span className="checkAddressButtonContainer">
-                <button
-                  className="checkAddressButton"
-                  type="button"
-                  onClick={this.findScreen}
-                  disabled={!isValidAddress(this.state.address)}>
-                  &#x1F50D;
-              </button>
-              </span>
-            </div>
+            {result && <ViewCertificate address={this.state.address} result={result} /> ||
+              <div>
+                <div>
+                  <h3>Enter an address below to view a certificate if one exists</h3>
+                </div>
+                <div>
+                  <span className="checkAddressContainer">
+                    <input
+                      className="checkAddressBox"
+                      type="text"
+                      placeholder="Enter Ethereum address here"
+                      value={this.props.address}
+                      onChange={this.handleChange}
+                      size="42"
+                    />
+                  </span>
+                  <span className="checkAddressButtonContainer">
+                    <button
+                      className="checkAddressButton"
+                      type="button"
+                      onClick={this.findScreen}
+                      disabled={!isValidAddress(this.state.address)}>
+                      &#x1F50D;
+                    </button>
+                  </span>
+                </div>
+              </div>}
+
           </div>) : (<div className="topMessage">
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
+        <div>.</div>
+        <div>.</div>
       </div>
     )
   }
