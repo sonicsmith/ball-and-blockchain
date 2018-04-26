@@ -11,6 +11,17 @@ const isValidAddress = (h) => {
   return true
 }
 
+
+const getParameterByName = (name, url) => {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 export default class CheckAddress extends React.Component {
 
   constructor() {
@@ -31,6 +42,11 @@ export default class CheckAddress extends React.Component {
       this.state.hasWeb3 = true
     } else {
       console.log("Can't find metamask")
+    }
+    const address = getParameterByName("address")
+    if (address) {
+      this.state.address = address
+      this.findScreen()
     }
   }
 
@@ -57,8 +73,8 @@ export default class CheckAddress extends React.Component {
     const { result } = this.state
     return (
       <div className="center-all">
-        <div>.</div>
-        <div>.</div>
+        <div>{"\u00a0"}</div>
+        <div>{"\u00a0"}</div>
         {this.state.hasWeb3 ?
           (<div>
             {result && <ViewCertificate address={this.state.address} result={result} /> ||
@@ -72,7 +88,7 @@ export default class CheckAddress extends React.Component {
                       className="checkAddressBox"
                       type="text"
                       placeholder="Enter Ethereum address here"
-                      value={this.props.address}
+                      value={this.state.address}
                       onChange={this.handleChange}
                       size="42"
                     />
@@ -93,8 +109,8 @@ export default class CheckAddress extends React.Component {
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
-        <div>.</div>
-        <div>.</div>
+        <div>{"\u00a0"}</div>
+        <div>{"\u00a0"}</div>
       </div>
     )
   }
