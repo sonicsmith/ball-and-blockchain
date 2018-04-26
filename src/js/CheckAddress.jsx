@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import Web3 from "web3"
 import { abi } from "../../build/contracts/MarriageCertificates.json"
 import ViewCertificate from "./ViewCertificate"
+import { certificateAddress } from "./constants"
 
 const isValidAddress = (h) => {
   if (!h || h.length != 42) {
@@ -36,9 +37,7 @@ export default class CheckAddress extends React.Component {
       console.log("Using web3 detected from external source")
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
-      this.contractInstance = myContract.at(
-        "0x0facaadd39bec3526405c8d783546faf9de09ee8"
-      )
+      this.contractInstance = myContract.at(certificateAddress)
       this.state.hasWeb3 = true
     } else {
       console.log("Can't find metamask")
@@ -54,7 +53,8 @@ export default class CheckAddress extends React.Component {
     console.log("Checking address for:", this.state.address)
     if (this.contractInstance) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
-        if (!err) {
+        // if (!err) {
+        if (result && result[1]) {
           this.setState({ result })
         } else {
           alert("No certificate found for address")

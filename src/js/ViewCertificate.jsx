@@ -3,8 +3,6 @@ import ReactDOM from "react-dom"
 import Web3 from "web3"
 import { abi } from "../../build/contracts/MarriageCertificates.json"
 import styles from "../css/styles.css"
-
-import ViewablePartner from "./ViewablePartner"
 import PartnerImage from "./PartnerImage"
 
 
@@ -30,7 +28,6 @@ export default class ViewCertificate extends React.Component {
     }
 
     const { result } = this.props
-
     const bid = this.web3.fromWei(result[0].toNumber(), "ether")
     const names = result[1]
     const nameSplitIndex = names.indexOf("&")

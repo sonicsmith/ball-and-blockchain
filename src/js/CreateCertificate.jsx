@@ -5,8 +5,8 @@ import { observer } from "mobx-react"
 import Web3 from "web3"
 import { abi } from "../../build/contracts/MarriageCertificates.json"
 import styles from "../css/styles.css"
-
 import EditablePartner from "./EditablePartner"
+import { certificateAddress } from "./constants"
 
 const certificateTypeNames = [
   "Bronze", "Silver", "Gold", "Platinum"
@@ -55,9 +55,7 @@ export default class CreateCertificate extends React.Component {
       console.log("Using web3 detected from external source")
       this.web3 = new Web3(web3.currentProvider)
       const myContract = this.web3.eth.contract(abi)
-      this.contractInstance = myContract.at(
-        "0x0facaadd39bec3526405c8d783546faf9de09ee8"
-      )
+      this.contractInstance = myContract.at(certificateAddress)
     } else {
       console.log("No Web3 detected")
       this.currentView = views.NO_WEB3
@@ -192,34 +190,34 @@ export default class CreateCertificate extends React.Component {
           </div>
           )}
 
-
         {this.currentView == views.NO_ADDRESS &&
-          (<div className="topMessage">
+          (<div className="messageBottom">
             Cannot find address, are you logged in?
           </div>)}
 
 
         {this.currentView == views.SENDING &&
-          (<div className="topMessage">
+          (<div className="messageBottom">
             <div>Transaction being processed...</div>
             <div><a href={this.transactionUrl}>Click here for progress</a></div>
           </div>)}
 
 
         {this.currentView == views.ERROR &&
-          (<div className="topMessage">
+          (<div className="messageBottom">
             Certificate not created. Your account has not been charged.
           </div>)}
 
 
         {this.currentView == views.NO_WEB3 &&
-          (<div>
+          (<div className="messageBottom">
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
+
         <div>{"\u00a0"}</div>
         <div>{"\u00a0"}</div>
-      </div>
+      </div >
     )
   }
 }
