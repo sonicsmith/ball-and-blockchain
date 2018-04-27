@@ -53,7 +53,6 @@ export default class CheckAddress extends React.Component {
     console.log("Checking address for:", this.state.address)
     if (this.contractInstance) {
       this.contractInstance.getCertificate(this.state.address, (err, result) => {
-        // if (!err) {
         if (result && result[1]) {
           this.setState({ result })
         } else {
