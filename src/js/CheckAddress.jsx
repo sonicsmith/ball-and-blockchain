@@ -60,7 +60,7 @@ export default class CheckAddress extends React.Component {
         }
       })
     } else {
-      alert("Can't connect to server")
+      alert("Can't connect to server. Are you using a web3 browser?")
     }
   }
 
