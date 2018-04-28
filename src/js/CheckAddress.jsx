@@ -104,7 +104,7 @@ export default class CheckAddress extends React.Component {
                 </div>
               </div>}
 
-          </div>) : (<div className="topMessage">
+          </div>) : (<div className="messageBottom">
             Web3 plugin needed to access blockchain.
             We recommend using <a href="https://metamask.io/">Metamask</a>
           </div>)}
