@@ -29,6 +29,14 @@ export const Certificate = ({ address }: CertificateProps) => {
 
   const { borderColor, partnerDetails, price, message, blockNumber } = data;
 
+  if (!borderColor) {
+    return (
+      <div className="text-xl text-center p-6 text-white">
+        An imprint was found at this address but was not created with this site
+      </div>
+    );
+  }
+
   return (
     <div style={{ borderColor, borderWidth: 10 }}>
       <div className="bg-[#e6e6e6] text-black text-center p-6">

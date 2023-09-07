@@ -29,7 +29,7 @@ export const useViewCertificate = (address: string) => {
         case "0.03":
           return "#D4AF37";
         default:
-          return "#dddddd";
+          return "";
       }
     }
   }, [data, price]);
