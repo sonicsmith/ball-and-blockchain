@@ -112,7 +112,7 @@ export const CreateForm = () => {
             ) : (
               <ConnectKitButton.Custom>
                 {({ show }: { show: () => void }) => {
-                  return <Button onClick={show}>Create</Button>;
+                  return <Button onClick={show}>Connect</Button>;
                 }}
               </ConnectKitButton.Custom>
             )}

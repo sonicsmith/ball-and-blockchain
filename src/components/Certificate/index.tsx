@@ -9,8 +9,8 @@ interface CertificateProps {
 }
 
 export const Certificate = ({ address }: CertificateProps) => {
-  console.log("address", address);
   const { data, isError, isLoading } = useViewCertificate(address);
+
   if (isLoading) {
     return (
       <div className="p-32">
